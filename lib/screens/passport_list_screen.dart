@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../provider/passport_provider.dart';
 import 'passport_form_screen.dart';
 import 'passport_detail_screen.dart';
+import '../widget/passport_card.dart';
 
 class PassportListScreen extends StatefulWidget {
   const PassportListScreen({super.key});
@@ -39,6 +40,7 @@ class _PassportListScreenState extends State<PassportListScreen> {
                       builder: (_) => PassportDetailScreen(passport: passport),
                     ),
                   ),
+                  child: PassportCard(passport: passport),
                 );
               },
             ),

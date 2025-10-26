@@ -32,7 +32,7 @@ class PassportDetailScreen extends StatelessWidget {
                 context: context,
                 builder: (_) => AlertDialog(
                   title: const Text('Confirm Delete'),
-                  content: const Text('Are you sure you want to delete this?'),
+                  content: const Text('แน่ใจหรือไม่ว่าต้องการจะลบข้อมูลนี้'),
                   actions: [
                     TextButton(
                         onPressed: () => Navigator.pop(context, false),
@@ -53,48 +53,73 @@ class PassportDetailScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (passport.photoPath.isNotEmpty)
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.white,
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.file(
-                    File(passport.photoPath),
-                    width: 150,
-                    height: 180,
-                    fit: BoxFit.cover,
+                child: Text(
+                  "PASSPORT",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (passport.photoPath.isNotEmpty)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(
+                        File(passport.photoPath),
+                        width: 120,
+                        height: 150,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  else
+                    Container(
+                      width: 120,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(child: Text('No Image')),
+                    ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Passport No: ${passport.passportNumber}',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('full Name: ${passport.fullName}'),
+                        Text('Nationality: ${passport.nationality}'),
+                        Text('Date of Birth: ${passport.dateOfBirth}'),
+                        Text('Gender: ${passport.gender}'),
+                        Text('Issue Date: ${passport.issueDate}'),
+                        Text('Expiry Date: ${passport.expiryDate}'),
+                      ],
+                    ),
                   ),
-                ),
-              )
-            else
-              Container(
-                width: 150,
-                height: 180,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(child: Text('No Image')),
+                ],
               ),
-              const Text(
-              'ข้อมูลส่วนตัว',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 16),
+              Divider(color: Colors.grey),
+              const SizedBox(height: 8),
+              Text(
+                'Additional Information',
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            ),
-            const Divider(),
-            const SizedBox(height: 20),
-            Text('Passport Number: ${passport.passportNumber}'),
-            Text('Full Name: ${passport.fullName}'),
-            Text('Nationality: ${passport.nationality}'),
-            Text('Date of Birth: ${passport.dateOfBirth}'),
-            Text('Gender: ${passport.gender}'),
-            Text('Issue Date: ${passport.issueDate}'),
-            Text('Expiry Date: ${passport.expiryDate}'),
-          ],
+            ],
+          ),
         ),
       ),
     );
